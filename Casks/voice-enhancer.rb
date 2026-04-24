@@ -13,6 +13,12 @@ cask "voice-enhancer" do
   artifact "VoiceEnhancer.driver", target: "/Library/Audio/Plug-Ins/HAL/VoiceEnhancer.driver"
 
   postflight do
+    system_command "/usr/sbin/chown",
+                   args: ["-R", "root:wheel", "/Library/Audio/Plug-Ins/HAL/VoiceEnhancer.driver"],
+                   sudo: true
+    system_command "/bin/chmod",
+                   args: ["-R", "go-w", "/Library/Audio/Plug-Ins/HAL/VoiceEnhancer.driver"],
+                   sudo: true
     system_command "/usr/bin/killall",
                    args: ["-9", "coreaudiod"],
                    sudo: true
