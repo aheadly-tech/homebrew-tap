@@ -13,12 +13,21 @@ cask "voice-enhancer" do
   artifact "VoiceEnhancer.driver", target: "/Library/Audio/Plug-Ins/HAL/VoiceEnhancer.driver"
 
   postflight do
+    # Remove quarantine (app is not notarized yet)
+    system_command "/usr/bin/xattr",
+                   args: ["-rc", "/Applications/Voice Enhancer.app"],
+                   sudo: true
+    system_command "/usr/bin/xattr",
+                   args: ["-rc", "/Library/Audio/Plug-Ins/HAL/VoiceEnhancer.driver"],
+                   sudo: true
+    # Driver must be owned by root for coreaudiod to load it
     system_command "/usr/sbin/chown",
                    args: ["-R", "root:wheel", "/Library/Audio/Plug-Ins/HAL/VoiceEnhancer.driver"],
                    sudo: true
     system_command "/bin/chmod",
                    args: ["-R", "go-w", "/Library/Audio/Plug-Ins/HAL/VoiceEnhancer.driver"],
                    sudo: true
+    # Restart coreaudiod so it picks up the new driver
     system_command "/usr/bin/killall",
                    args: ["-9", "coreaudiod"],
                    sudo: true
