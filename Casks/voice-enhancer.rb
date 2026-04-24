@@ -1,6 +1,6 @@
 cask "voice-enhancer" do
   version "1.0.0"
-  sha256 "c32c8571386168cd7f859406109abaa904fff22fad6b4e33902592bb25b861b7"
+  sha256 "726394b79e6ae06f7f3a519f3468a58f263d52d6da1fd3ce5e095c6ce226f4dc"
 
   url "https://github.com/aheadly-tech/voice-enhancer/releases/download/v#{version}/Voice-Enhancer-#{version}.zip"
   name "Voice Enhancer"
